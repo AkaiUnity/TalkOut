@@ -511,6 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b9a1781c9f2944f992dcf60a739756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aiChatManager: {fileID: 946752551}
   maxMessages: 100
   messageList: []
   chatPanel: {fileID: 520253785}
@@ -518,6 +519,7 @@ MonoBehaviour:
   scrollRect: {fileID: 83795433}
   inputField: {fileID: 990491316}
   inputFieldText: {fileID: 860575730}
+  DefaultFileName: /chatLogs.json
 --- !u!4 &525140599
 Transform:
   m_ObjectHideFlags: 0
@@ -1134,6 +1136,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &946752550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 946752552}
+  - component: {fileID: 946752551}
+  m_Layer: 0
+  m_Name: AIChatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &946752551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946752550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62d56aaca1f730f4589f1ca555333c37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcSpeaker: {fileID: 11400000, guid: 30641791b7c1a5b46a964178c48e805a, type: 2}
+--- !u!4 &946752552
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946752550}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &990491314
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,6 +1388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerProfile: {fileID: 11400000, guid: 16b5080d1d187ba4dafc293f978281c4, type: 2}
+  DefaultFileName: /chatLogs.json
 --- !u!1 &1136319581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,6 +1909,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1405227206}
   - {fileID: 525140599}
+  - {fileID: 946752552}
   - {fileID: 1353821987}
   - {fileID: 850850148}
   - {fileID: 630461700}

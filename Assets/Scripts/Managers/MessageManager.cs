@@ -10,6 +10,8 @@ public class MessageManager : MonoBehaviour
 {
     public static MessageManager Instance { get; private set; }
 
+    [SerializeField] AIChatManager aiChatManager;
+
     private void Awake()
     {
         // Check if an instance already exists
@@ -26,7 +28,7 @@ public class MessageManager : MonoBehaviour
 
     // List that holds all active chat messages in the system
     [SerializeField] List<Message> messageList = new List<Message>();
-
+    public List<Message> GetMessageList() { return messageList; }
     // The parent UI object (usually a Vertical Layout Group) where messages are shown
     [SerializeField] GameObject chatPanel;
 
@@ -90,7 +92,24 @@ public class MessageManager : MonoBehaviour
 
         DisplayMessagesFromList();
         AutoScroll();
-        MessageManager.Instance.SaveMessagesToJson(Application.persistentDataPath + DefaultFileName);
+        SaveMessagesToJson(Application.persistentDataPath + DefaultFileName);
+
+        // 🚀 If the speaker is YOU (player), trigger the AI response
+        if (speaker.speakerName == "YOU")
+        {
+            if (aiChatManager != null)
+            {
+                // Decide which NPC speaker should respond
+                SpeakerProfile npcSpeaker = aiChatManager.npcSpeaker;
+                // Example: maybe always use a specific NPC, or pick based on last message, etc.
+                // For now, if you have a default NPC, call:
+                aiChatManager.GetAIResponse(npcSpeaker);
+            }
+            else
+            {
+                Debug.LogWarning("🧐 No AIChatManager found in the scene!");
+            }
+        }
     }
     // New method to build UI from the message list
     private void DisplayMessagesFromList()

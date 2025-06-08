@@ -5,6 +5,9 @@ public class SpeakerProfile : ScriptableObject
 {
     [Header("Identity")]
     public string speakerName;
+    public string speakerBackStory;
+    public string speakerPersonality;
+    public string speakerAcknowledge;
 
     [Header("Color Settings")]
     public Color nameColor = Color.white; // Color for the name

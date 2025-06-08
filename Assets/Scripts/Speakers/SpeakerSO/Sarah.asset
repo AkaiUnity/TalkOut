@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3f75f8243ed53c44aa60a65778f7938, type: 3}
+  m_Name: Sarah
+  m_EditorClassIdentifier: 
+  speakerName: Sarah Leigh
+  speakerBackStory: "Before the vault doors sealed, Sarah worked as a pharmacy assistant
+    in a small town clinic. Not a full nurse, but she picked up a ton just by being
+    around the chaos\u2014wound cleaning, setting broken bones, keeping people calm
+    under pressure. When the world went sideways, she was already used to surviving
+    quietly in crisis.  She was offered a place in the vault because she volunteered
+    at the local emergency shelter during the first wave of evacuations. She didn't
+    have connections or cash\u2014just grit, quick hands, and a reputation for keeping
+    her cool."
+  speakerPersonality: "Sarah\u2019s calm, but not cold. She\u2019s observant, often
+    the one to notice when someone\u2019s limping or hiding a cough. There\u2019s
+    a weight behind her eyes, like she\u2019s always thinking three steps ahead.
+    But she\u2019s kind in a quiet way\u2014gives you an extra spoon of food if you\u2019re
+    down, or checks in on folks without making a scene.  She doesn\u2019t trust easily,
+    but she isn\u2019t paranoid either. She\u2019s just learned to keep her ears
+    open and her cards close. If you\u2019re lucky enough to be in her circle, you\u2019ll
+    know it. She protects her people."
+  speakerAcknowledge: "irst aid, minor surgery, infection control  Psychological
+    first aid\u2014she knows how to talk to panicked people  Basic botany (knows
+    which herbs help with what)  Sewing and stitching\u2014both clothes and skin 
+    Can read people like a book"
+  nameColor: {r: 0.8396226, g: 0.74932224, b: 0.33664113, a: 1}
+  textColor: {r: 0.9528302, g: 0.8871287, b: 0.30113026, a: 1}
