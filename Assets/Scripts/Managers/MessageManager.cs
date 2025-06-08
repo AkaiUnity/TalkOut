@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 // This class handles chat message logic and displays it in the UI
 public class MessageManager : MonoBehaviour
@@ -41,6 +42,7 @@ public class MessageManager : MonoBehaviour
     // Reference to the visible text inside the input field
     [SerializeField] TextMeshProUGUI inputFieldText;
 
+    public string DefaultFileName = "/chatLogs.json";
 
     // Checks for Enter key and sends the message if input isn't empty
     public void RecieveMessageFromInputField(SpeakerProfile speaker)
@@ -70,32 +72,44 @@ public class MessageManager : MonoBehaviour
     }
 
     // Handles creating and displaying a new chat message
-    public void SendMessageFromSpeaker(string text, SpeakerProfile speaker)
+
+    public void SendMessageFromSpeaker(string rawText, SpeakerProfile speaker)
     {
-        if (messageList.Count > maxMessages)
+        if (messageList.Count >= maxMessages)
         {
-            Destroy(messageList[0].TextMeshProComponent.gameObject);
             messageList.RemoveAt(0);
         }
 
-        // Create new message and UI element
         Message newMessage = new Message
         {
-            Text = $"{speaker.speakerName}: {text}", // 🟢 Unformatted for storage
+            RawText = rawText,
             Speaker = speaker
         };
 
-        GameObject newText = Instantiate(textObject, chatPanel.transform);
-        TextMeshProUGUI textComponent = newText.GetComponent<TextMeshProUGUI>();
-        newMessage.TextMeshProComponent = textComponent;
-
-        // Apply formatted message for display
-        string formattedText = FormatMessageWithSpeaker(speaker, text);
-        textComponent.text = formattedText;
-
         messageList.Add(newMessage);
 
+        DisplayMessagesFromList();
         AutoScroll();
+        MessageManager.Instance.SaveMessagesToJson(Application.persistentDataPath + DefaultFileName);
+    }
+    // New method to build UI from the message list
+    private void DisplayMessagesFromList()
+    {
+        foreach (Transform child in chatPanel.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
+        foreach (Message msg in messageList)
+        {
+            GameObject newTextObj = Instantiate(textObject, chatPanel.transform);
+            TextMeshProUGUI textComponent = newTextObj.GetComponent<TextMeshProUGUI>();
+
+            string formatted = FormatMessageWithSpeaker(msg.Speaker, msg.RawText);
+            textComponent.text = formatted;
+
+            msg.TextMeshProComponent = textComponent;
+        }
     }
 
     // Ensures the ScrollRect always shows the latest message
@@ -117,16 +131,40 @@ public class MessageManager : MonoBehaviour
         string coloredText = $"<color=#{ColorUtility.ToHtmlStringRGB(speaker.textColor)}>{messageText}</color>";
         return $"{coloredName}: {coloredText}";
     }
+
+    public void SaveMessagesToJson(string filePath)
+    {
+        if (messageList == null || messageList.Count == 0)
+        {
+            Debug.LogWarning("⚠️ No messages to save. The message list is null or empty.");
+            return;
+        }
+        MessageSaveData saveData = new MessageSaveData();
+        saveData.messages = new List<SimpleMessage>();
+        
+        foreach (Message msg in messageList)
+        {
+            saveData.messages.Add(new SimpleMessage
+            {
+                speakerName = msg.Speaker.speakerName,
+                text = msg.RawText
+            });
+        }
+
+        string json = JsonUtility.ToJson(saveData, true); // true = pretty print for easier reading
+
+        File.WriteAllText(filePath, json);
+        Debug.Log($"Saved messages to: {filePath}");
+    }
 }
 // Serializable class to store each message and its associated TMP UI element
+
 [System.Serializable]
 public class Message
 {
-    // The actual text content of the message
-    public string Text;
-
-    // The UI component used to display the message
-    public TextMeshProUGUI TextMeshProComponent;
+    public string RawText; // Only the message, no speaker or formatting
     public SpeakerProfile Speaker;
+    public string Text => $"{Speaker.speakerName}: {RawText}"; // Derived property
 
+    public TextMeshProUGUI TextMeshProComponent;
 }
