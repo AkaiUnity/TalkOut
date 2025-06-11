@@ -147,8 +147,48 @@ public class MessageManager : MonoBehaviour
     private string FormatMessageWithSpeaker(SpeakerProfile speaker, string messageText)
     {
         string coloredName = $"<color=#{ColorUtility.ToHtmlStringRGB(speaker.nameColor)}>{speaker.speakerName}</color>";
-        string coloredText = $"<color=#{ColorUtility.ToHtmlStringRGB(speaker.textColor)}>{messageText}</color>";
-        return $"{coloredName}: {coloredText}";
+
+        // If the speaker is not YOU, assume there’s narrative text to italicize
+        if (speaker.speakerName != "YOU")
+        {
+            // Try to split the message into narrative and spoken parts
+            // We’ll treat everything outside quotes as narrative, and inside quotes as spoken
+            string formatted = "";
+            int startQuote = messageText.IndexOf("\"");
+            int endQuote = messageText.LastIndexOf("\"");
+
+            if (startQuote != -1 && endQuote != -1 && endQuote > startQuote)
+            {
+                // Narrative before the quote
+                string narrative = messageText.Substring(0, startQuote).Trim();
+                // Spoken text inside quotes
+                string spoken = messageText.Substring(startQuote, endQuote - startQuote + 1).Trim();
+                // Narrative after the quote
+                string narrativeAfter = messageText.Substring(endQuote + 1).Trim();
+
+                // Italicize the narrative parts
+                string coloredNarrative = $"<i><color=#{ColorUtility.ToHtmlStringRGB(speaker.textColor)}>{narrative}</color></i>";
+                string coloredSpoken = $"<color=#{ColorUtility.ToHtmlStringRGB(speaker.textColor)}>{spoken}</color>";
+                string coloredNarrativeAfter = $"<i><color=#{ColorUtility.ToHtmlStringRGB(speaker.textColor)}>{narrativeAfter}</color></i>";
+
+                // Combine
+                formatted = $"{coloredName}: {coloredNarrative} {coloredSpoken} {coloredNarrativeAfter}";
+            }
+            else
+            {
+                // No quotes? Just italicize the whole thing
+                string coloredNarrative = $"<i><color=#{ColorUtility.ToHtmlStringRGB(speaker.textColor)}>{messageText}</color></i>";
+                formatted = $"{coloredName}: {coloredNarrative}";
+            }
+
+            return formatted.Trim();
+        }
+        else
+        {
+            // Player text, no italics
+            string coloredText = $"<color=#{ColorUtility.ToHtmlStringRGB(speaker.textColor)}>{messageText}</color>";
+            return $"{coloredName}: {coloredText}";
+        }
     }
 
     public void SaveMessagesToJson(string filePath)

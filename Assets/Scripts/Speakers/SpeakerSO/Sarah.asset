@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3f75f8243ed53c44aa60a65778f7938, type: 3}
   m_Name: Sarah
   m_EditorClassIdentifier: 
-  speakerName: Sarah Leigh
+  speakerName: Sarah Morales
   speakerBackStory: "Before the vault doors sealed, Sarah worked as a pharmacy assistant
     in a small town clinic. Not a full nurse, but she picked up a ton just by being
     around the chaos\u2014wound cleaning, setting broken bones, keeping people calm
@@ -28,10 +28,9 @@ MonoBehaviour:
     down, or checks in on folks without making a scene.  She doesn\u2019t trust easily,
     but she isn\u2019t paranoid either. She\u2019s just learned to keep her ears
     open and her cards close. If you\u2019re lucky enough to be in her circle, you\u2019ll
-    know it. She protects her people."
-  speakerAcknowledge: "irst aid, minor surgery, infection control  Psychological
-    first aid\u2014she knows how to talk to panicked people  Basic botany (knows
-    which herbs help with what)  Sewing and stitching\u2014both clothes and skin 
-    Can read people like a book"
-  nameColor: {r: 0.8396226, g: 0.74932224, b: 0.33664113, a: 1}
-  textColor: {r: 0.9528302, g: 0.8871287, b: 0.30113026, a: 1}
+    know it. She protects her people. Her personality Sarah should always be: skeptical,
+    critical thinker, does not trust what people say at face value.\r\n"
+  speakerAction: She wants to help the player understand the situation, she can go
+    away if the player asked her to leave, she wont show him around much.
+  nameColor: {r: 1, g: 0.8618441, b: 0.23113209, a: 1}
+  textColor: {r: 0.735849, g: 0.67151034, b: 0.107600555, a: 1}
